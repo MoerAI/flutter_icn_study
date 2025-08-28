@@ -3,7 +3,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+<<<<<<< Updated upstream:lib/card_shop.dart
 import 'package:icn_study/gen/assets.gen.dart';
+=======
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'cart_provider.dart';
+import 'models/product.dart';
+import 'pages/cart_page.dart';
+import 'pages/product_detail_page.dart';
+import 'widgets/add_to_cart_animation.dart';
+>>>>>>> Stashed changes:lib/main.dart
 
 void main() {
   runApp(const MyApp());
@@ -37,37 +46,7 @@ class _ProductListPageState extends State<ProductListPage> {
       title: 'Apple',
       summary: 'Fresh red apple',
       price: 1200,
-      desc: """
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-API Dash is a beautiful open-source cross-platform API Client that can help you easily create & customize your API requests, visually inspect responses (full list of supported mime-types) and generate API integration code (full list) on the go.
-""",
+      desc: 'Fresh red apple with sweet taste',
       color: Colors.red,
     ),
     Product(
@@ -138,6 +117,59 @@ API Dash is a beautiful open-source cross-platform API Client that can help you 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< Updated upstream:lib/card_shop.dart
+=======
+      appBar: AppBar(
+        title: const Text('상품 목록'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              final cart = ref.watch(cartProvider);
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  if (cart.itemCount > 0)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          '${cart.itemCount}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+>>>>>>> Stashed changes:lib/main.dart
       body: Center(
         child: CardSwiper(
           cardBuilder:
@@ -174,7 +206,6 @@ API Dash is a beautiful open-source cross-platform API Client that can help you 
                             borderRadius: BorderRadius.circular(15),
                             color: product.color,
                           ),
-
                           child: Column(
                             children: [
                               const SizedBox(height: 5),
@@ -188,13 +219,13 @@ API Dash is a beautiful open-source cross-platform API Client that can help you 
                               ),
                               Text(
                                 product.title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Text(product.summary),
-                              Text(product.price.toString()),
+                              Text('${product.price}원'),
                               ElevatedButton(
                                 onPressed: () {},
                                 child: Text('장바구니에 담기'),
@@ -213,6 +244,7 @@ API Dash is a beautiful open-source cross-platform API Client that can help you 
     );
   }
 }
+<<<<<<< Updated upstream:lib/card_shop.dart
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -254,3 +286,5 @@ class Product {
     required this.color,
   });
 }
+=======
+>>>>>>> Stashed changes:lib/main.dart
