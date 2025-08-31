@@ -1,18 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-<<<<<<< Updated upstream:lib/card_shop.dart
-import 'package:icn_study/gen/assets.gen.dart';
-=======
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cart_provider.dart';
 import 'models/product.dart';
 import 'pages/cart_page.dart';
 import 'pages/product_detail_page.dart';
 import 'widgets/add_to_cart_animation.dart';
->>>>>>> Stashed changes:lib/main.dart
 
 void main() {
   runApp(const MyApp());
@@ -23,26 +17,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: const ProductListPage(),
       ),
-      home: ProductListPage(),
     );
   }
 }
 
-class ProductListPage extends StatefulWidget {
+class ProductListPage extends ConsumerStatefulWidget {
   const ProductListPage({super.key});
 
   @override
-  State<ProductListPage> createState() => _ProductListPageState();
+  ConsumerState<ProductListPage> createState() => _ProductListPageState();
 }
 
-class _ProductListPageState extends State<ProductListPage> {
+class _ProductListPageState extends ConsumerState<ProductListPage> {
   final List<Product> _list = [
     Product(
+      id: 'apple',
       title: 'Apple',
       summary: 'Fresh red apple',
       price: 1200,
@@ -50,6 +47,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.red,
     ),
     Product(
+      id: 'banana',
       title: 'Banana',
       summary: 'Sweet banana',
       price: 800,
@@ -57,6 +55,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.yellow,
     ),
     Product(
+      id: 'orange',
       title: 'Orange',
       summary: 'Citrus orange',
       price: 1500,
@@ -64,6 +63,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.orange,
     ),
     Product(
+      id: 'grapes',
       title: 'Grapes',
       summary: 'Seedless grapes',
       price: 2000,
@@ -71,6 +71,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.purple,
     ),
     Product(
+      id: 'watermelon',
       title: 'Watermelon',
       summary: 'Large watermelon',
       price: 5000,
@@ -78,6 +79,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.green,
     ),
     Product(
+      id: 'strawberry',
       title: 'Strawberry',
       summary: 'Fresh strawberry',
       price: 2500,
@@ -85,6 +87,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.pink,
     ),
     Product(
+      id: 'peach',
       title: 'Peach',
       summary: 'Soft peach',
       price: 1800,
@@ -92,6 +95,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.yellow,
     ),
     Product(
+      id: 'mango',
       title: 'Mango',
       summary: 'Tropical mango',
       price: 3000,
@@ -99,6 +103,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.amber,
     ),
     Product(
+      id: 'blueberry',
       title: 'Blueberry',
       summary: 'Healthy blueberry',
       price: 3500,
@@ -106,6 +111,7 @@ class _ProductListPageState extends State<ProductListPage> {
       color: Colors.blue,
     ),
     Product(
+      id: 'pineapple',
       title: 'Pineapple',
       summary: 'Juicy pineapple',
       price: 4000,
@@ -114,11 +120,34 @@ class _ProductListPageState extends State<ProductListPage> {
     ),
   ];
 
+  void _showAddToCartAnimation(BuildContext context, Product product) {
+    final RenderBox buttonRenderBox = context.findRenderObject() as RenderBox;
+    final buttonPosition = buttonRenderBox.localToGlobal(Offset.zero);
+
+    // 애니메이션 오버레이 표시
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Colors.transparent,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return AddToCartAnimationOverlay(
+          product: product,
+          startPosition: buttonPosition,
+          onAnimationComplete: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 1000),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return child;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< Updated upstream:lib/card_shop.dart
-=======
       appBar: AppBar(
         title: const Text('상품 목록'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -169,7 +198,6 @@ class _ProductListPageState extends State<ProductListPage> {
           ),
         ],
       ),
->>>>>>> Stashed changes:lib/main.dart
       body: Center(
         child: CardSwiper(
           cardBuilder:
@@ -227,8 +255,30 @@ class _ProductListPageState extends State<ProductListPage> {
                               Text(product.summary),
                               Text('${product.price}원'),
                               ElevatedButton(
-                                onPressed: () {},
-                                child: Text('장바구니에 담기'),
+                                onPressed: () async {
+                                  // 장바구니에 상품 추가
+                                  ref
+                                      .read(cartProvider.notifier)
+                                      .addItem(
+                                        product.id,
+                                        product.title,
+                                        product.price,
+                                        product.color,
+                                      );
+
+                                  // 애니메이션 시작
+                                  _showAddToCartAnimation(context, product);
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${product.title}이(가) 장바구니에 추가되었습니다!',
+                                      ),
+                                      duration: const Duration(seconds: 2),
+                                    ),
+                                  );
+                                },
+                                child: const Text('장바구니에 담기'),
                               ),
                             ],
                           ),
@@ -244,47 +294,3 @@ class _ProductListPageState extends State<ProductListPage> {
     );
   }
 }
-<<<<<<< Updated upstream:lib/card_shop.dart
-
-class ProductDetailPage extends StatelessWidget {
-  final Product product;
-  const ProductDetailPage({super.key, required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(product.title)),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Image.network(
-              'https://media.istockphoto.com/id/532048136/ko/%EC%82%AC%EC%A7%84/%EC%8B%A0%EC%84%A0%ED%95%9C-%EB%A0%88%EB%93%9C-%EC%82%AC%EA%B3%BC%EB%82%98%EB%AC%B4-%ED%9D%B0%EC%83%89-%EB%B0%94%ED%83%95%EC%97%90-%EA%B7%B8%EB%A6%BC%EC%9E%90%EC%99%80-%ED%81%B4%EB%A6%AC%ED%95%91-%EA%B2%BD%EB%A1%9C%EB%A5%BC-%ED%86%B5%ED%95%B4.jpg?s=1024x1024&w=is&k=20&c=tGdr_JYRW035yWh43Mcbbe-CDndzOt2l5QkDYV4LxZ0=',
-            ),
-            Expanded(child: SingleChildScrollView(child: Text(product.desc))),
-            TextButton(
-              onPressed: () {},
-              child: Text('${product.price}원에 구입하기'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Product {
-  String title;
-  String summary;
-  int price;
-  String desc;
-  Color color;
-  Product({
-    required this.title,
-    required this.summary,
-    required this.price,
-    required this.desc,
-    required this.color,
-  });
-}
-=======
->>>>>>> Stashed changes:lib/main.dart

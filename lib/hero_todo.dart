@@ -53,8 +53,8 @@ class _TodoPageWidgetState extends State<TodoPageWidget> {
 }
 
 class TodoDetailWidget extends StatelessWidget {
-  TodoItem todo;
-  TodoDetailWidget({super.key, required this.todo});
+  final TodoItem todo;
+  const TodoDetailWidget({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class TodoDetailWidget extends StatelessWidget {
 }
 
 class TodoItem {
-  String title;
-  String subTitle;
-  TodoItem({required this.title, required this.subTitle});
+  final String title;
+  final String subTitle;
+  const TodoItem({required this.title, required this.subTitle});
 }
