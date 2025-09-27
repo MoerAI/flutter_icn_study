@@ -1,35 +1,18 @@
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
-import 'dart:isolate';
 
 Future<void> main() async {
-  runApp(const MyApp());
-  // Isolate에서 CPU 바운드 작업 실행
-  startCpuBoundIsolate();
-  // 기존 http 요청 예시
-  await http.get(Uri.https('festa.atawlee.com', '/api/chatlobby/chatrooms'));
-  runApp(const MyApp());
-}
-
-// CPU 바운드 작업을 수행하는 함수
-void cpuBoundTask(SendPort sendPort) async {
-  int sum = 0;
-  for (int i = 0; i < 10; i++) {
-    sum += i;
-    await Future.delayed(Duration(seconds: 2));
+  // HTTP 요청 예시 (비동기 작업 학습용)
+  try {
+    final response = await http.get(
+      Uri.https('festa.atawlee.com', '/api/chatlobby/chatrooms'),
+    );
+    debugPrint('HTTP Response Status: ${response.statusCode}');
+  } catch (e) {
+    debugPrint('HTTP Request failed: $e');
   }
-  // 2초 딜레이 추가
 
-  sendPort.send(sum);
-}
-
-// Isolate를 시작하고 결과를 받는 함수
-Future<void> startCpuBoundIsolate() async {
-  ReceivePort receivePort = ReceivePort();
-  await Isolate.spawn(cpuBoundTask, receivePort.sendPort);
-  int result = await receivePort.first;
-  print('Isolate 작업 결과: $result');
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
