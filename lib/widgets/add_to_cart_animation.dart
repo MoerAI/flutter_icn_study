@@ -65,18 +65,14 @@ class _AddToCartAnimationOverlayState extends State<AddToCartAnimationOverlay>
   void _startAnimation() async {
     // 스케일 애니메이션 먼저 시작
     await _scaleController.forward();
+    if (!mounted) return;
 
-    // 슬라이드 애니메이션 시작
-    _controller.forward();
+    // 슬라이드 애니메이션 시작 후 완료 콜백 실행.
+    // forward() 이후에 리스너를 붙이면 completed를 놓쳐 오버레이가 남아있게 된다.
+    await _controller.forward();
+    if (!mounted) return;
 
-    // 애니메이션 완료 후 콜백 실행
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(milliseconds: 200), () {
-          widget.onAnimationComplete();
-        });
-      }
-    });
+    widget.onAnimationComplete();
   }
 
   @override

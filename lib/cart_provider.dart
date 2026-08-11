@@ -1,20 +1,24 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartItem {
+class CartItem extends Equatable {
   final String id;
   final String title;
   final int price;
   final int quantity;
   final Color color;
 
-  CartItem({
+  const CartItem({
     required this.id,
     required this.title,
     required this.price,
     required this.quantity,
     required this.color,
   });
+
+  @override
+  List<Object?> get props => [id, title, price, quantity, color];
 
   CartItem copyWith({
     String? id,

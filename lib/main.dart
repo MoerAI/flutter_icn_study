@@ -120,8 +120,15 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
     ),
   ];
 
-  void _showAddToCartAnimation(BuildContext context, Product product) {
-    final RenderBox buttonRenderBox = context.findRenderObject() as RenderBox;
+  /// [buttonContext] must be the context of the pressed button so that the
+  /// animation starts from the button itself rather than an ancestor box.
+  void _showAddToCartAnimation(
+    BuildContext buttonContext,
+    BuildContext context,
+    Product product,
+  ) {
+    final buttonRenderBox = buttonContext.findRenderObject();
+    if (buttonRenderBox is! RenderBox || !buttonRenderBox.hasSize) return;
     final buttonPosition = buttonRenderBox.localToGlobal(Offset.zero);
 
     // 애니메이션 오버레이 표시
@@ -254,31 +261,37 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
                               ),
                               Text(product.summary),
                               Text('${product.price}원'),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  // 장바구니에 상품 추가
-                                  ref
-                                      .read(cartProvider.notifier)
-                                      .addItem(
-                                        product.id,
-                                        product.title,
-                                        product.price,
-                                        product.color,
-                                      );
+                              Builder(
+                                builder: (buttonContext) => ElevatedButton(
+                                  onPressed: () async {
+                                    // 장바구니에 상품 추가
+                                    ref
+                                        .read(cartProvider.notifier)
+                                        .addItem(
+                                          product.id,
+                                          product.title,
+                                          product.price,
+                                          product.color,
+                                        );
 
-                                  // 애니메이션 시작
-                                  _showAddToCartAnimation(context, product);
+                                    // 애니메이션 시작 (버튼 자신의 context 사용)
+                                    _showAddToCartAnimation(
+                                      buttonContext,
+                                      context,
+                                      product,
+                                    );
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        '${product.title}이(가) 장바구니에 추가되었습니다!',
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          '${product.title}이(가) 장바구니에 추가되었습니다!',
+                                        ),
+                                        duration: const Duration(seconds: 2),
                                       ),
-                                      duration: const Duration(seconds: 2),
-                                    ),
-                                  );
-                                },
-                                child: const Text('장바구니에 담기'),
+                                    );
+                                  },
+                                  child: const Text('장바구니에 담기'),
+                                ),
                               ),
                             ],
                           ),
